@@ -1,0 +1,47 @@
+let secretMessage = [
+  "Learning",
+  "is",
+  "not",
+  "about",
+  "what",
+  "you",
+  "get",
+  "easily",
+  "the",
+  "first",
+  "time,",
+  "it",
+  "is",
+  "about",
+  "what",
+  "you",
+  "can",
+  "figure",
+  "out.",
+  "-2015,",
+  "Chris",
+  "Pine,",
+  "Learn",
+  "JavaScript",
+];
+// remove last word
+secretMessage.pop();
+
+//counts number of items in the list
+console.log(secretMessage.length);
+
+// adding words to the array
+secretMessage.push("to", "Program");
+
+//changing the word easy to right
+secretMessage[7] = "right";
+
+// removed the first string from the array
+secretMessage.shift();
+
+// added the word at the front of the array
+secretMessage.unshift("Programming");
+
+// Use splice to remove 'get', 'right', 'the', 'first', 'time,' and replace them with 'know,'
+secretMessage.splice(6, 5, "know,");
+console.log(secretMessage.join(" "));
