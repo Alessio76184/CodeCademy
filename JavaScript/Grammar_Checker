@@ -1,0 +1,104 @@
+let story =
+  'Last weekend, I took literally the most beautifull bike ride of my life. The route is called "The 9W to Nyack" and it stretches all the way from Riverside Park in Manhattan to South Nyack, New Jersey. It\'s really an adventure from beginning to end! It is a 48 mile loop and it literally took me an entire day. I stopped at Riverbank State Park to take some artsy photos. It was a short stop, though, because I had a freaking long way to go. After a quick photo op at the very popular Little Red Lighthouse I began my trek across the George Washington Bridge into New Jersey. The GW is a breathtaking 4,760 feet long! I was already very tired by the time I got to the other side. An hour later, I reached Greenbrook Nature Sanctuary, an extremely beautifull park along the coast of the Hudson. Something that was very surprising to me was that near the end of the route you literally cross back into New York! At this point, you are very close to the end.';
+
+let storyWords = story.split(" ");
+let unnecessaryWord = "literally";
+let misspelledWord = "beautifull";
+let badWord = "freaking";
+
+let count = 0;
+storyWords = storyWords.filter((word) => {
+  count++;
+  return word !== unnecessaryWord;
+});
+
+storyWords = storyWords.map((word) => {
+  if (word === misspelledWord) {
+    return "beautiful";
+  } else {
+    return word;
+  }
+  return word;
+});
+
+let badWordIndex = storyWords.findIndex((word) => word === badWord);
+
+storyWords[badWordIndex] = "really";
+
+// Find the long word that exceeds 10 characters
+const longWord = storyWords.find((word) => word.length > 10);
+console.log("Too long:", longWord); // optional: to confirm the word
+
+// Replace it (if found)
+const longWordIndex = storyWords.findIndex((word) => word === longWord);
+if (longWordIndex !== -1) {
+  storyWords[longWordIndex] = "glorious"; // or 'stunning' or 'dazzling'
+}
+
+// Find the word 'very'
+const spotWord = storyWords.find((word) => word === "very");
+console.log("Found word:", spotWord);
+
+// Find its index
+const spotWordIndex = storyWords.findIndex((word) => word === spotWord);
+
+// Remove it from the array if it exists
+if (spotWordIndex !== -1) {
+  storyWords.splice(spotWordIndex, 1); // remove 1 item at that index
+}
+
+// Find the word 'GW'
+const spotWordGW = storyWords.find((word) => word === "GW");
+console.log("Found word:", spotWordGW);
+
+// Find its index
+const spotWordGWIndex = storyWords.findIndex((word) => word === spotWordGW);
+
+// Remove it from the array if it exists
+if (spotWordGWIndex !== -1) {
+  storyWords[spotWordGWIndex] = "George Washington";
+}
+
+// Converting from Imperial to Metric
+//Define unit conversions
+const unitMap = {
+  mile: { metric: "kilometer", factor: 1.60934 },
+  miles: { metric: "kilometers", factor: 1.60934 },
+  foot: { metric: "meter", factor: 0.3048 },
+  feet: { metric: "meters", factor: 0.3048 },
+};
+
+// Loop through storyWords to convert units from Imperial to Metric
+for (let i = 0; i < storyWords.length; i++) {
+  // Clean the word (lowercase, remove punctuation)
+  let rawWord = storyWords[i].toLowerCase().replace(/[.,!?]/g, "");
+
+  // If it's a known unit
+  if (unitMap[rawWord]) {
+    const { metric, factor } = unitMap[rawWord];
+
+    // Look back one word for the number
+    const prev = storyWords[i - 1];
+    const number = parseFloat(prev.replace(/[^0-9.]/g, ""));
+
+    if (!isNaN(number)) {
+      // Convert the number and replace previous word
+      const converted = (number * factor).toFixed(1);
+      storyWords[i - 1] = converted;
+    }
+
+    // Replace the unit word
+    storyWords[i] = storyWords[i].replace(rawWord, metric);
+  }
+}
+
+//Join the edited story and log it
+const updatedStory = storyWords.join(" ");
+console.log(updatedStory);
+
+let lengthCheck = storyWords.every((word) => word.length <= 10);
+
+console.log(lengthCheck);
+console.log(badWordIndex);
+console.log(storyWords);
+console.log(storyWords.join(" "));
